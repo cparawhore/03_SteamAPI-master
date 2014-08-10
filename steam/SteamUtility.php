@@ -27,7 +27,7 @@ class SteamUtility {
 				'http' => array(
 					'timeout' => self::$connectTimeout
 			)));
-			return file_get_contents($url, false, $ctx);
+			return @file_get_contents($url, false, $ctx);
 		}
 		elseif (function_exists('curl_init'))
 		{

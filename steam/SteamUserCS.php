@@ -50,8 +50,10 @@ class SteamUser {
 	 * - Accesses Steam Profile XML and parses the data
 	 */
 	
-	public function getProfileData() {
 
+	public function getProfileData() {
+		
+		
 		//Set Base URL for the query:
 		if(empty($this->vanityURL)) {
 			$base = "http://steamcommunity.com/profiles/{$this->userID}/?xml=1";
@@ -72,22 +74,28 @@ class SteamUser {
 		}
 
 		if(!empty($parsedData)) {
-			$this->steamID64 = (string)$parsedData->steamID64;
-			$this->steamID = (string)$parsedData->steamID;
-			$this->stateMessage = (string)$parsedData->stateMessage;
-			$this->visibilityState = (int)$parsedData->visibilityState;
-			$this->privacyState = (string)$parsedData->privacyState;
+			$datosCuenta = array(
+			'steamID64' => (string)$parsedData->steamID64,
+			'steamID' => (string)$parsedData->steamID,
+			
+			'stateMessage' => (string)$parsedData->stateMessage,
+			'visibilityState' => (int)$parsedData->visibilityState,
+			'privacyState' => (string)$parsedData->privacyState,
 
-			$this->avatarIcon = (string)$parsedData->avatarIcon;
-			$this->avatarMedium = (string)$parsedData->avatarMedium;
-			$this->avatarFull = (string)$parsedData->avatarFull;
+			'avatarIcon' => (string)$parsedData->avatarIcon,
+			'avatarMedium' => (string)$parsedData->avatarMedium,
+			'avatarFull' => (string)$parsedData->avatarFull,
 
-			$this->vacBanned = (int)$parsedData->vacBanned;
-			$this->tradeBanState = (string)$parsedData->tradeBanState;
-			$this->isLimitedAccount = (string)$parsedData->isLimitedAccount;
+			'vacBanned' => (int)$parsedData->vacBanned,
+			'tradeBanState' => (string)$parsedData->tradeBanState,
+			'isLimitedAccount' => (string)$parsedData->isLimitedAccount,
 
-			$this->onlineState = (string)$parsedData->onlineState;
-			$this->inGameServerIP = (string)$parsedData->inGameServerIP;
+			'onlineState' => (string)$parsedData->onlineState,
+			'inGameServerIP' => (string)$parsedData->inGameServerIP,
+			);
+
+			$datos = array('datosCuenta' => $datosCuenta);
+			return $datos;
 
 			//If their account is public, get that info:
 			if($this->privacyState == "public") {
@@ -179,7 +187,6 @@ class SteamUser {
 	function getFriendsList() {
 
 		$apikey = $this->apiKey;
-
 		if(!empty($this->steamID64)) {
 			//Setup URL to the steam API for the list:
 			$baseURL = "http://api.steampowered.com/ISteamUser/GetFriendList/v0001/"

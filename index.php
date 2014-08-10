@@ -23,15 +23,8 @@ require_once("steam/SteamGame.php");
 
 	$userID = '76561198085580328';
 	//'38788FFEE44E5EA4B7B4ED778A3C11B6');
-	$user = new SteamUser($userID,'38788FFEE44E5EA4B7B4ED778A3C11B6');
-if($user != NULL) {
-    $fl = $user->getFriendsList(); //Pull the friends from the Steam API
-
-    for($i = 0; $i < count($fl); $i++) {
-        //echo each friends Steam ID
-        echo "Friend Steam ID: {$fl[$i]->steamid}", PHP_EOL;
-    }
-}
+	$user = new SteamUser($userID,'5C0B43D4E3936F5288A311A55FCCFC0F');
+	var_dump($user->getProfileData());
 
 
 
